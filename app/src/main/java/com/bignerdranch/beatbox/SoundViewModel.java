@@ -3,7 +3,7 @@ package com.bignerdranch.beatbox;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
-// SOS: AFAICT anything referenced in the layout must be public, eg here the class and getTitle.
+// SOS: things referenced in the layout, eg the class itself, getTitle etc, must be public.
 public class SoundViewModel extends BaseObservable {
 
     private Sound mSound;
@@ -24,8 +24,12 @@ public class SoundViewModel extends BaseObservable {
 
     void setSound(Sound sound) {
         mSound = sound;
-        // SOS: notifies binding class that this field changed so that it will run the @{} code in
-        // the layout again. To refresh ALL @Bindable fields of the view-model, use notifyChange();
+        // SOS: notify the binding class to run the code in @{viewModel.title} again. (if we want ALL
+        // @Bindable fields to be refreshed, call notifyChange)
         notifyPropertyChanged(BR.title);
+    }
+
+    public void onButtonClicked() {
+        mBeatBox.play(mSound);
     }
 }
