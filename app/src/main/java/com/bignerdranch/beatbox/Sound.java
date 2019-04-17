@@ -4,7 +4,7 @@ class Sound {
 
     private final String mAssetPath;
     private final String mName;
-    private Integer mSoundId;   // SOS: Integer makes it possible to have null here if no sound set.
+    private Integer mSoundId;
 
     Sound(String assetPath) {
         mAssetPath = assetPath;

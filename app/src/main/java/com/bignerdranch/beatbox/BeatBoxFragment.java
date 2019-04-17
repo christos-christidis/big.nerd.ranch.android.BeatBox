@@ -35,13 +35,6 @@ public class BeatBoxFragment extends Fragment {
         Objects.requireNonNull(getActivity());
         mBeatBox = new BeatBox(getActivity());
 
-        // SOS: if fragment is destroyed as normal on rotation, mBeatBox w its mSoundPool are also
-        // destroyed & the sound is interrupted. W this method, onDestroy is not called (only onPause,
-        // onStop, onDestroyView, onDetach and similarly onCreate is not called on creation. However,
-        // I should NOT retain fragments if possible, cause 1) they're harder to debug, 2) if the
-        // fragment has any handles to views, eg mTextView, these views contain refs to the old Context
-        // even when a new one's been created, so the old one won't be gc'd. So remember to create
-        // those handles in onCreateView and set them to null in onDestroyView.
         setRetainInstance(true);
     }
 
@@ -72,13 +65,6 @@ public class BeatBoxFragment extends Fragment {
             mBinding.setViewModel(new SoundViewModel(mBeatBox));
         }
 
-        // SOS: When we notify the binding class to re-run the layout code (see SOS in SoundViewModel),
-        // that code is scheduled to be run at some point before the next frame. But think of what
-        // happens when we're scrolling the recycler-view. It's possible that a new viewholder comes
-        // into view and onBindViewHolder is called BEFORE we change the data. RecyclerView calculates
-        // the dimensions immediately after onBindViewHolder, so it's very likely that it'll calculate
-        // the wrong dimensions (for the old data). That leads to mysterious bugs, like:
-        // https://www.e-gineering.com/2017/01/17/android-data-binding-subtleties/
         private void bind(Sound sound) {
             Objects.requireNonNull(mBinding.getViewModel());
             mBinding.getViewModel().setSound(sound);
