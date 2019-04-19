@@ -1,7 +1,5 @@
 <resources>
 
-    <!-- SOS: I refer to @color/gray with a @ because it's a concrete value. Whereas colorAccent that
-    points to non-concrete value @color/gray is referred to as ?attr/colorAccent -->
     <style name="AppTheme" parent="Theme.AppCompat">
         <item name="colorPrimary">@color/red</item>
         <item name="colorPrimaryDark">@color/dark_red</item>
@@ -11,10 +9,8 @@
     </style>
 
     <style name="BeatBoxButton" parent="Widget.AppCompat.Button">
-        <!-- SOS: The reason for the android prefix is that android:background is defined in the code
-        of the Android OS, whereas eg Theme.AppCompat is defined in the AppCompat library which is
-        included in our code so it's considered as part of our code! -->
-        <item name="android:background">@color/dark_blue</item>
+        <!-- SOS: ref'ing the selector which picks either normal or pressed button drawable -->
+        <item name="android:background">@drawable/button_beat_box</item>
     </style>
 
 </resources>
